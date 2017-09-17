@@ -1,7 +1,5 @@
 package com.szp.app.network.client;
 
-import com.szp.app.network.base.BaseRequest;
-import com.szp.app.network.base.BaseResponse;
 import com.szp.app.network.reponse.PersonBaseResponse;
 import com.szp.app.network.requests.PersonRequest;
 

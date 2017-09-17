@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Desc :
  */
 
-public class NetClient {
+public class RetrofitNetClient implements INetClient {
 
 	/**
 	 * Retrofit
@@ -28,7 +28,7 @@ public class NetClient {
 	 */
 	private String mUrl;
 
-	public NetClient(String url) {
+	public RetrofitNetClient(String url) {
 		this.mUrl = url;
 		mRetrofit = new Retrofit.Builder()
 				.baseUrl(mUrl)

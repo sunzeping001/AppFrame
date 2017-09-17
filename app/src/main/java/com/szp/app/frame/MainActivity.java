@@ -7,8 +7,7 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 
-import com.szp.app.network.client.NetClient;
-import com.szp.app.network.reponse.PersonBaseResponse;
+import com.szp.app.network.client.RetrofitNetClient;
 import com.szp.app.network.requests.PersonRequest;
 
 public class MainActivity extends Activity {
@@ -22,7 +21,7 @@ public class MainActivity extends Activity {
 					public void run() {
 						String url = "http://192.168.0.108:8080/welcome/";
 						String path = "TestPerson";
-						NetClient netClient = new NetClient(url);
+						RetrofitNetClient netClient = new RetrofitNetClient(url);
 						PersonRequest request = new PersonRequest();
 						request.setId("123");
 //						PersonBaseResponse response = (PersonBaseResponse) netClient.syncRequest(request);
