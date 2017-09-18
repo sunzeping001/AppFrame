@@ -13,7 +13,6 @@ import com.szp.app.network.client.INetClient;
 import com.szp.app.network.client.RetrofitNetClientFactory;
 import com.szp.app.network.requests.PersonRequest;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends Activity {
@@ -52,11 +51,10 @@ public class MainActivity extends Activity {
   };
 
   private void requestServer(){
-    String url = "http://192.168.0.108:8080/welcome/";
-    String path = "TestPerson";
+    String baseUrl = "http://192.168.0.108:8080/welcome/";
     INetClient netClient =
         AbstractNetClientFactory.getFactory(RetrofitNetClientFactory.class)
-            .getNetClient(url);
+            .getNetClient(baseUrl);
     PersonRequest request = new PersonRequest();
     request.setId("123");
     netClient.asynRequest(request, new retrofit2.Callback() {
