@@ -7,8 +7,7 @@ package com.szp.app.network.client;
  */
 
 public class RetrofitNetClientFactory extends AbstractNetClientFactory {
-	@Override
-	INetClient getNetClient(String url) {
-		return new RetrofitNetClient(url);
-	}
+  @Override public INetClient getNetClient(String url) {
+    return new RetrofitNetClient(url);
+  }
 }

@@ -12,6 +12,6 @@ public abstract class AbstractNetClientFactory {
 	 * 获取具体实现的NetClient实例
 	 * @return
 	 */
-	abstract INetClient getNetClient(String url);
+	public abstract INetClient getNetClient(String url);
 
 }

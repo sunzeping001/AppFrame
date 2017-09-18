@@ -6,9 +6,17 @@ package com.szp.app.network.client;
  * Desc :
  */
 
-public interface INetClient {
+public interface INetClient<DataRespons, DataRequest> {
+  /**
+   * 同步请求
+   * @param request
+   * @return
+   */
+  DataRespons syncRequest(DataRequest request);
 
-	<DataRespons> syncRequest(<DataRequest> );
-
-
+  /**
+   * 异步请求
+   * @param request
+   */
+  void asynRequest(final DataRequest request);
 }
