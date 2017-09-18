@@ -1,5 +1,7 @@
 package com.szp.app.network.client;
 
+import retrofit2.Callback;
+
 /**
  * Created by sunzeping on 17/9/17.
  * Function :
@@ -18,5 +20,5 @@ public interface INetClient<DataRespons, DataRequest> {
    * 异步请求
    * @param request
    */
-  void asynRequest(final DataRequest request);
+  void asynRequest(final DataRequest request, Callback<DataRespons> call);
 }
