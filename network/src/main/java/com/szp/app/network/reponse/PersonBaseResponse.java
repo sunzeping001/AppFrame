@@ -12,7 +12,15 @@ import com.szp.app.network.entity.Person;
 public class PersonBaseResponse extends BaseResponse {
 
 	private String name;
-	private String age;
+	private String url;
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	public String getName() {
 		return name;
@@ -20,13 +28,5 @@ public class PersonBaseResponse extends BaseResponse {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getAge() {
-		return age;
-	}
-
-	public void setAge(String age) {
-		this.age = age;
 	}
 }

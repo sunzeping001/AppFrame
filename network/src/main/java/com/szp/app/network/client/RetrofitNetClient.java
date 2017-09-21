@@ -1,13 +1,6 @@
 package com.szp.app.network.client;
 
-import android.util.Log;
-
-import com.szp.app.network.reponse.PersonBaseResponse;
-import com.szp.app.network.requests.PersonRequest;
-
-import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -17,16 +10,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Desc :
  */
 
-public class RetrofitNetClient implements INetClient<PersonBaseResponse,PersonRequest> {
+public abstract class RetrofitNetClient<DataRespons,DataRequest> implements INetClient<DataRespons,DataRequest> {
 
   /**
    * Retrofit
    */
-  private Retrofit mRetrofit;
+  protected Retrofit mRetrofit;
   /**
    *  请求地址url
    */
-  private String mUrl;
+  protected String mUrl;
 
   public RetrofitNetClient(String url) {
     this.mUrl = url;
@@ -38,37 +31,17 @@ public class RetrofitNetClient implements INetClient<PersonBaseResponse,PersonRe
   /**
    * 同步返回接口数据
    */
-  @Override public PersonBaseResponse syncRequest(PersonRequest request) {
-    PersonBaseResponse response = null;
-    CommonInterface.PersonServer personServer =
-        mRetrofit.create(CommonInterface.PersonServer.class);
-    Call<PersonBaseResponse> call = personServer.requestPerson(request);
-    try {
-      Response rp = call.execute();
-      response = (PersonBaseResponse) rp.body();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  @Override public DataRespons syncRequest(DataRequest request) {
+    DataRespons response = null;
     return response;
   }
 
   /**
    * 异步返回结果
    */
-  @Override public void asynRequest(final PersonRequest request,Callback<PersonBaseResponse> outCall) {
-    CommonInterface.PersonServer personServer =
-        mRetrofit.create(CommonInterface.PersonServer.class);
-    Call<PersonBaseResponse> call = personServer.requestPerson(request);
-    call.enqueue(outCall);
-    //call.enqueue(new Callback<PersonBaseResponse>() {
-    //  @Override
-    //  public void onResponse(Call<PersonBaseResponse> call, Response<PersonBaseResponse> response) {
-    //    Log.e("szp", response.body().toString());
-    //  }
-    //
-    //  @Override public void onFailure(Call<PersonBaseResponse> call, Throwable t) {
-    //    Log.e("szp", t.getMessage());
-    //  }
-    //});
+  @Override public void asynRequest(final DataRequest request, Callback<DataRespons> outCall) {
+    //server = mRetrofit.create(server.getClass());
+    //Call<DataRespons> call = server.request(request);
+    //call.enqueue(outCall);
   }
 }

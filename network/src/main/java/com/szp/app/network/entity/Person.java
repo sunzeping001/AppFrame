@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public class Person implements Serializable {
 	private String name;
-	private String age;
+	private String url;
 
 	public String getName() {
 		return name;
@@ -20,11 +20,11 @@ public class Person implements Serializable {
 		this.name = name;
 	}
 
-	public String getAge() {
-		return age;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setAge(String age) {
-		this.age = age;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

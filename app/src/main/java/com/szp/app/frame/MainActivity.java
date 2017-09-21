@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.szp.app.network.client.AbstractNetClientFactory;
 import com.szp.app.network.client.INetClient;
 import com.szp.app.network.client.RetrofitNetClientFactory;
+import com.szp.app.network.reponse.PersonBaseResponse;
 import com.szp.app.network.requests.PersonRequest;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -51,15 +52,17 @@ public class MainActivity extends Activity {
   };
 
   private void requestServer(){
-    String baseUrl = "http://192.168.0.108:8080/welcome/";
+    String baseUrl = "http://10.13.42.45:8080/MyJSTest/";
     INetClient netClient =
         AbstractNetClientFactory.getFactory(RetrofitNetClientFactory.class)
             .getNetClient(baseUrl);
     PersonRequest request = new PersonRequest();
     request.setId("123");
-    netClient.asynRequest(request, new retrofit2.Callback() {
-      @Override public void onResponse(Call call, Response response) {
-        Toast.makeText(MainActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+    netClient.asynRequest(request, new retrofit2.Callback<PersonBaseResponse>() {
+      @Override public void onResponse(Call<PersonBaseResponse> call, Response<PersonBaseResponse> response) {
+        PersonBaseResponse personBaseResponse = (PersonBaseResponse) response.body();
+        Log.e("szp", personBaseResponse.getName());
+        Log.e("szp", personBaseResponse.getUrl());
       }
 
       @Override public void onFailure(Call call, Throwable t) {

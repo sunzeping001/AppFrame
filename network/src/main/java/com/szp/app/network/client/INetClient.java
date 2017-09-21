@@ -1,5 +1,6 @@
 package com.szp.app.network.client;
 
+import com.szp.app.network.base.BaseRequest;
 import retrofit2.Callback;
 
 /**
@@ -8,7 +9,7 @@ import retrofit2.Callback;
  * Desc :
  */
 
-public interface INetClient<DataRespons, DataRequest> {
+public interface INetClient<DataRespons,DataRequest> {
   /**
    * 同步请求
    * @param request

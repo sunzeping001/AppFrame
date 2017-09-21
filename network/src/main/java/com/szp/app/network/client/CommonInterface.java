@@ -16,10 +16,10 @@ import retrofit2.http.POST;
 
 public interface CommonInterface {
 
-	interface PersonServer {
+	interface Server{
 		@Headers({"Content-type:application/json;charset=UTF-8"})
-		@POST("TestPerson")
-		Call<PersonBaseResponse> requestPerson(@Body PersonRequest request);
+		@POST("JsonTest")
+		Call<PersonBaseResponse> request(@Body PersonRequest request);
 	}
 
 }

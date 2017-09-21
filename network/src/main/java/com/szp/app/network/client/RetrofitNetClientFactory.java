@@ -8,6 +8,6 @@ package com.szp.app.network.client;
 
 public class RetrofitNetClientFactory extends AbstractNetClientFactory {
   @Override public INetClient getNetClient(String url) {
-    return new RetrofitNetClient(url);
+    return new NetClient(url);
   }
 }
