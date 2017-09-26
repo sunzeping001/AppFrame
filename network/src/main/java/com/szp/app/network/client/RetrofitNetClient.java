@@ -1,6 +1,5 @@
 package com.szp.app.network.client;
 
-import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -10,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Desc :
  */
 
-public abstract class RetrofitNetClient<DataRespons,DataRequest> implements INetClient<DataRespons,DataRequest> {
+public abstract class RetrofitNetClient implements INetClient {
 
   /**
    * Retrofit
@@ -28,20 +27,6 @@ public abstract class RetrofitNetClient<DataRespons,DataRequest> implements INet
         .build();
   }
 
-  /**
-   * 同步返回接口数据
-   */
-  @Override public DataRespons syncRequest(DataRequest request) {
-    DataRespons response = null;
-    return response;
-  }
 
-  /**
-   * 异步返回结果
-   */
-  @Override public void asynRequest(final DataRequest request, Callback<DataRespons> outCall) {
-    //server = mRetrofit.create(server.getClass());
-    //Call<DataRespons> call = server.request(request);
-    //call.enqueue(outCall);
-  }
+
 }

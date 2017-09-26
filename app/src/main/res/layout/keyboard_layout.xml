@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center_horizontal"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    >
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="#dddddd"
+      />
+
+  <RelativeLayout
+      android:id="@+id/security_title_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#ffffff"
+      >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:drawableLeft="@mipmap/keyboard_icon"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:text="就是这么牛的键盘"
+        android:textColor="#1c1c1c"
+        android:textSize="14sp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:src="@mipmap/keybord_icon_close"
+        />
+
+  </RelativeLayout>
+
+  <android.inputmethodservice.KeyboardView
+      android:id="@+id/keyboard_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|center_horizontal"
+      android:background="#ffffff"
+      android:focusable="true"
+      android:focusableInTouchMode="true"
+      android:keyPreviewHeight="0dp"
+      android:keyTextColor="#000000"
+      android:shadowRadius="0.0"
+      />
+
+
+</LinearLayout>

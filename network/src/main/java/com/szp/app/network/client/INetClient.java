@@ -9,17 +9,6 @@ import retrofit2.Callback;
  * Desc :
  */
 
-public interface INetClient<DataRespons,DataRequest> {
-  /**
-   * 同步请求
-   * @param request
-   * @return
-   */
-  DataRespons syncRequest(DataRequest request);
+public interface INetClient {
 
-  /**
-   * 异步请求
-   * @param request
-   */
-  void asynRequest(final DataRequest request, Callback<DataRespons> call);
 }

@@ -2,65 +2,54 @@ package com.szp.app.frame;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
-import com.szp.app.network.client.AbstractNetClientFactory;
-import com.szp.app.network.client.INetClient;
-import com.szp.app.network.client.RetrofitNetClientFactory;
-import com.szp.app.network.reponse.PersonBaseResponse;
-import com.szp.app.network.requests.PersonRequest;
+import com.szp.app.frame.nametest.entity.PersonRequest;
+import com.szp.app.frame.nametest.response.PersonResponse;
+import com.szp.app.frame.net.NetClient;
+import com.szp.app.frame.widget.keyboard.MyKeyboard;
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class MainActivity extends Activity {
   private Button btn;
-  private Handler mHandler = new Handler() {
-    @Override public void handleMessage(Message msg) {
-      if (msg.what == 0) {
-        new Thread(new Runnable() {
-          @Override public void run() {
-            requestServer();
-          }
-        }).start();
-      }
-    }
-  };
+  private EditText edit;
+  private MyKeyboard keyboard;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     btn = (Button) findViewById(R.id.btn);
+    keyboard = (MyKeyboard) findViewById(R.id.keyboard);
     btn.setOnClickListener(btnClickListener);
+    edit = (EditText) findViewById(R.id.edit);
+    edit.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        //KeyboardUtil.shared(MainActivity.this,edit).showKeyboard();
+        keyboard.showKeyboard(MainActivity.this,edit);
+      }
+    });
+
   }
 
   private View.OnClickListener btnClickListener = new View.OnClickListener() {
     @Override public void onClick(View view) {
-
-      //mHandler.postDelayed(new Runnable() {
-      //  @Override public void run() {
-      //    Message message = new Message();
-      //    message.what = 0;
-      //    mHandler.sendMessage(message);
-      //  }
-      //}, 1000);
       requestServer();
     }
   };
 
-  private void requestServer(){
+  private void requestServer() {
     String baseUrl = "http://10.13.42.45:8080/MyJSTest/";
-    INetClient netClient =
-        AbstractNetClientFactory.getFactory(RetrofitNetClientFactory.class)
-            .getNetClient(baseUrl);
     PersonRequest request = new PersonRequest();
-    request.setId("123");
-    netClient.asynRequest(request, new retrofit2.Callback<PersonBaseResponse>() {
-      @Override public void onResponse(Call<PersonBaseResponse> call, Response<PersonBaseResponse> response) {
-        PersonBaseResponse personBaseResponse = (PersonBaseResponse) response.body();
+    request.setName("123");
+    NetClient netClient = new NetClient(baseUrl);
+    netClient.asynPersonQuery(request, new retrofit2.Callback<PersonResponse>() {
+      @Override
+      public void onResponse(Call<PersonResponse> call, Response<PersonResponse> response) {
+        PersonResponse personBaseResponse = (PersonResponse) response.body();
         Log.e("szp", personBaseResponse.getName());
         Log.e("szp", personBaseResponse.getUrl());
       }
@@ -71,5 +60,4 @@ public class MainActivity extends Activity {
       }
     });
   }
-
 }
