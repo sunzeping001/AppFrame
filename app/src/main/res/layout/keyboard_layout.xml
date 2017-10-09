@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|center_horizontal"
-    android:background="#ffffff"
+    android:background="#00000000"
     android:orientation="vertical"
     >
 
@@ -45,11 +45,10 @@
   </RelativeLayout>
 
   <android.inputmethodservice.KeyboardView
-      android:id="@+id/keyboard_view"
+      android:id="@+id/mykeyboard"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|center_horizontal"
-      android:background="#ffffff"
       android:focusable="true"
       android:focusableInTouchMode="true"
       android:keyPreviewHeight="0dp"

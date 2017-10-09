@@ -16,6 +16,7 @@ allprojects {
 //    maven {
 //      url 'https://dl.bintray.com/xiaosungege/maven'
 //    }
+    maven { url 'https://jitpack.io' }
   }
   tasks.withType(Javadoc) {
     options{
