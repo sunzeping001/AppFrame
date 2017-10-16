@@ -2,6 +2,7 @@ package com.szp.app.frame.ui.news.newscontract;
 
 import android.app.Activity;
 
+import android.widget.ImageView;
 import com.szp.app.frame.BasePresenter;
 import com.szp.app.frame.BaseView;
 import com.szp.app.frame.ui.news.model.NewsData;
@@ -31,5 +32,10 @@ public interface INewsContract {
 		 * @return
 		 */
 		List<NewsData> getData();
+
+		List<ImageView> getImageViews();
+
+		int getDataSize();
+
 	}
 }

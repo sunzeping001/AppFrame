@@ -1,6 +1,5 @@
 package com.szp.app.frame;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,16 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.szp.app.frame.ui.WelcomeActivity;
+import com.szp.app.frame.activity.BaseActivity;
 import com.szp.app.frame.nametest.entity.PersonRequest;
 import com.szp.app.frame.nametest.response.PersonResponse;
 import com.szp.app.frame.net.NetClient;
-
+import com.szp.app.frame.ui.WelcomeActivity;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 	//	private Button btn;
 //	private EditText edit;
 //	private MyKeyboard keyboard;

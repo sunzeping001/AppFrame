@@ -23,12 +23,11 @@ public class BaseActivity extends FragmentActivity {
 
 	protected BaseData mBaseData;
 
-	private List<Activity> mListActivities;
+	private static List<Activity> mListActivities = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mListActivities = new ArrayList<>();
 		addListActivity(this);
 	}
 
@@ -87,8 +86,8 @@ public class BaseActivity extends FragmentActivity {
 		ft.commitAllowingStateLoss();
 	}
 
-	@Override
-	public void onBackPressed() {
-
+	@Override protected void onDestroy() {
+		super.onDestroy();
+		mListActivities.remove(mListActivities.size() - 1);
 	}
 }
