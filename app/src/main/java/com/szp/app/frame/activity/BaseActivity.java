@@ -87,8 +87,4 @@ public class BaseActivity extends FragmentActivity {
 		ft.commitAllowingStateLoss();
 	}
 
-	@Override
-	public void onBackPressed() {
-
-	}
 }

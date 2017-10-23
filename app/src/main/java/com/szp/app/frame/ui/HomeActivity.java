@@ -13,6 +13,9 @@ import com.szp.app.frame.ui.news.NewsFragment;
 import com.szp.app.frame.ui.news.model.NewsData;
 import com.szp.app.frame.ui.news.model.NewsFragmentModel;
 import com.szp.app.frame.ui.news.newscontract.NewsContractImpl;
+import com.szp.app.frame.ui.toutiao.TouTiaoFragment;
+import com.szp.app.frame.ui.toutiao.model.TouTiaoModel;
+import com.szp.app.frame.ui.toutiao.presenter.TouTiaoPresenterImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,15 +144,20 @@ public class HomeActivity extends BaseActivity {
 	 * 跳转到首页
 	 */
 	private void jumpToHomeFragment() {
-		HomeFragment homeFragment = new HomeFragment();
-		HomeFragmentModel homeFragmentModel = new HomeFragmentModel();
-		List<String> listUrl = new ArrayList<>();
-		listUrl.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507024066438&di=f51c63af6779d27b364efbb51560520c&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F50da81cb39dbb6fd493c67e70024ab18962b378f.jpg");
-		listUrl.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507024066430&di=0c89edad06bca737233d9153762658a2&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F0824ab18972bd40704fe413d72899e510fb30930.jpg");
-		listUrl.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507024066430&di=03df4cb59cfb1939960eda4adfb92a65&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fd833c895d143ad4b839de2028b025aafa50f0644.jpg");
-		homeFragmentModel.setListUrl(listUrl);
-		HomeFragmentContractImpl homeFragmentContract = new HomeFragmentContractImpl(homeFragment, homeFragmentModel);
-		startFirstFragment(homeFragment);
+//		HomeFragment homeFragment = new HomeFragment();
+//		HomeFragmentModel homeFragmentModel = new HomeFragmentModel();
+//		List<String> listUrl = new ArrayList<>();
+//		listUrl.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507024066438&di=f51c63af6779d27b364efbb51560520c&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F50da81cb39dbb6fd493c67e70024ab18962b378f.jpg");
+//		listUrl.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507024066430&di=0c89edad06bca737233d9153762658a2&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F0824ab18972bd40704fe413d72899e510fb30930.jpg");
+//		listUrl.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507024066430&di=03df4cb59cfb1939960eda4adfb92a65&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fd833c895d143ad4b839de2028b025aafa50f0644.jpg");
+//		homeFragmentModel.setListUrl(listUrl);
+//		HomeFragmentContractImpl homeFragmentContract = new HomeFragmentContractImpl(homeFragment, homeFragmentModel);
+//		startFirstFragment(homeFragment);
+
+		TouTiaoFragment touTiaoFragment = new TouTiaoFragment();
+		TouTiaoModel touTiaoModel = new TouTiaoModel();
+		TouTiaoPresenterImpl tiaoPresenter = new TouTiaoPresenterImpl(touTiaoFragment,touTiaoModel);
+		startFirstFragment(touTiaoFragment);
 	}
 
 	/**
@@ -191,8 +199,4 @@ public class HomeActivity extends BaseActivity {
 		startFirstFragment(newsFragment);
 	}
 
-	@Override
-	public void onBackPressed() {
-
-	}
 }

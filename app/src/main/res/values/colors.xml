@@ -6,6 +6,10 @@
 
 	<color name="myred">#FF3030</color>
 	<color name="mygrey">#999999</color>
+	<color name="mywhite">#ffffff</color>
+	<color name="myblack">#000000</color>
+
+
 
 
 </resources>
