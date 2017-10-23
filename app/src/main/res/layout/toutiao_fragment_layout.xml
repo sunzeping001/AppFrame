@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	<!--顶部标题布局-->
+	<LinearLayout
+		android:id="@+id/layout_title"
+		android:layout_width="match_parent"
+		android:layout_height="35dp"
+		android:background="@color/myred"
+		android:gravity="center"
+		android:orientation="horizontal"
+		>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="1dp"
+			android:gravity="center|left"
+			android:paddingLeft="5dp"
+			android:text="小孙哥哥"
+			android:textColor="@color/mywhite"
+			android:textSize="24sp"
+			android:textStyle="bold"
+			/>
+
+		<EditText
+			android:id="@+id/ed_serch"
+			android:layout_width="match_parent"
+			android:layout_height="25dp"
+			android:layout_marginLeft="4dp"
+			android:layout_marginRight="5dp"
+			android:background="@drawable/toutiao_fragment_title_serch_bg"
+			android:gravity="center"
+			android:hint="搜索"
+
+			/>
+
+
+	</LinearLayout>
+
+	<!--导航布局-->
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="35dp"
+		android:layout_marginLeft="3dp"
+		android:layout_marginRight="3dp"
+		android:gravity="center"
+		android:orientation="horizontal"
+		>
+
+		<HorizontalScrollView
+			android:layout_width="0dp"
+			android:layout_height="35dp"
+			android:layout_marginRight="5dp"
+			android:layout_weight="12"
+			android:scrollbars="none"
+			>
+
+			<LinearLayout
+				android:id="@+id/layout_icon"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginLeft="5dp"
+				android:layout_marginRight="5dp"
+				android:orientation="horizontal"
+				>
+
+				<!--<TextView-->
+					<!--android:layout_width="70dp"-->
+					<!--android:layout_height="match_parent"-->
+					<!--android:gravity="center"-->
+					<!--android:text="关注"-->
+					<!--android:textColor="#000000"-->
+					<!--android:textSize="18sp"/>-->
+
+				<!--<TextView-->
+					<!--android:layout_width="70dp"-->
+					<!--android:layout_height="match_parent"-->
+					<!--android:gravity="center"-->
+					<!--android:text="推荐"-->
+					<!--android:textColor="#000000"-->
+					<!--android:textSize="18sp"/>-->
+
+				<!--<TextView-->
+					<!--android:layout_width="70dp"-->
+					<!--android:layout_height="match_parent"-->
+					<!--android:gravity="center"-->
+					<!--android:text="十九大"-->
+					<!--android:textColor="#000000"-->
+					<!--android:textSize="18sp"/>-->
+
+				<!--<TextView-->
+					<!--android:layout_width="70dp"-->
+					<!--android:layout_height="match_parent"-->
+					<!--android:gravity="center"-->
+					<!--android:text="热点"-->
+					<!--android:textColor="#000000"-->
+					<!--android:textSize="18sp"/>-->
+
+				<!--<TextView-->
+					<!--android:layout_width="70dp"-->
+					<!--android:layout_height="match_parent"-->
+					<!--android:gravity="center"-->
+					<!--android:text="北京"-->
+					<!--android:textColor="#000000"-->
+					<!--android:textSize="18sp"/>-->
+
+				<!--<TextView-->
+					<!--android:layout_width="70dp"-->
+					<!--android:layout_height="match_parent"-->
+					<!--android:gravity="center"-->
+					<!--android:text="视频"-->
+					<!--android:textColor="#000000"-->
+					<!--android:textSize="18sp"/>-->
+
+			</LinearLayout>
+
+		</HorizontalScrollView>
+
+		<ImageView
+			android:id="@+id/img_indication_add_icon"
+			android:layout_width="0dp"
+			android:layout_height="25dp"
+			android:layout_weight="1"
+			android:src="@mipmap/toutiao_title_add_icon"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:background="#dddddd"
+		/>
+
+	<!--viewpager布局-->
+	<android.support.v4.view.ViewPager
+		android:id="@+id/viewPager"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		>
+
+	</android.support.v4.view.ViewPager>
+
+</LinearLayout>
