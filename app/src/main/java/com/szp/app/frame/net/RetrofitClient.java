@@ -2,6 +2,9 @@ package com.szp.app.frame.net;
 
 import com.szp.app.frame.ui.login.entity.LoginRequest;
 import com.szp.app.frame.ui.login.entity.LoginResponse;
+import com.szp.app.frame.ui.news.entity.NewsReponse;
+import com.szp.app.frame.ui.news.entity.NewsRequest;
+import com.szp.app.frame.ui.news.model.NewsFragmentModel;
 import com.szp.app.frame.ui.toutiao.entity.ToutiaoRequest;
 import com.szp.app.frame.ui.toutiao.entity.ToutiaoResponse;
 import com.szp.app.frame.ui.toutiao.model.TouTiaoModel;
@@ -82,19 +85,39 @@ public class RetrofitClient extends RetrofitNetClient{
     });
   }
 
-  ///**
-  // * 同步请求
-  // */
-  //public HomeResponse synQuery(HomeRequest request) {
-  //  HomeResponse response = null;
-  //  CommonInterface.Home personServer = mRetrofit.create(CommonInterface.Home.class);
-  //  Call<HomeResponse> call = personServer.request(request);
-  //  try {
-  //    Response rp = call.execute();
-  //    response = (HomeResponse) rp.body();
-  //  } catch (Exception e) {
-  //    e.printStackTrace();
-  //  }
-  //  return response;
-  //}
+  /**
+   * 获取登录信息请求
+   */
+  public void asynNewsQuery(NewsRequest request, final IResultCallback resultCallback) {
+    CommonInterface.News server = mRetrofit.create(CommonInterface.News.class);
+    Call<NewsReponse> call = server.request(request);
+    call.enqueue(new Callback<NewsReponse>() {
+      @Override
+      public void onResponse(Call<NewsReponse> call, Response<NewsReponse> response) {
+        String code = response.body().getCode();
+        String msg = response.body().getErrorMsg();
+        NewsFragmentModel newsFragmentModel = response.body().getNewsFragmentModel();
+        if("0".equals(code)){
+          resultCallback.onSuccess(newsFragmentModel);
+        } else {
+          resultCallback.onFail(code,msg);
+        }
+      }
+
+      @Override public void onFailure(Call<NewsReponse> call, Throwable t) {
+        if (t instanceof ConnectException) {
+          resultCallback.onFail("110", "连接超时...");
+        } else if (t instanceof SocketException) {
+          resultCallback.onFail("120", "服务器异常...");
+        }
+      }
+    });
+  }
+
+
+
+
+
+
+
 }

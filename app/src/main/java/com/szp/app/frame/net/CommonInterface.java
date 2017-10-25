@@ -6,6 +6,8 @@ import com.szp.app.frame.ui.home.entity.HomeRequest;
 import com.szp.app.frame.ui.home.entity.HomeResponse;
 import com.szp.app.frame.ui.login.entity.LoginRequest;
 import com.szp.app.frame.ui.login.entity.LoginResponse;
+import com.szp.app.frame.ui.news.entity.NewsReponse;
+import com.szp.app.frame.ui.news.entity.NewsRequest;
 import com.szp.app.frame.ui.toutiao.entity.ToutiaoRequest;
 import com.szp.app.frame.ui.toutiao.entity.ToutiaoResponse;
 import retrofit2.Call;
@@ -34,5 +36,10 @@ public interface CommonInterface {
   interface Toutiao {
     @Headers({ "Content-type:application/json;charset=UTF-8" }) @POST("Toutiao")
     Call<ToutiaoResponse> request(@Body ToutiaoRequest request);
+  }
+
+  interface News {
+    @Headers({ "Content-type:application/json;charset=UTF-8" }) @POST("News")
+    Call<NewsReponse> request(@Body NewsRequest request);
   }
 }

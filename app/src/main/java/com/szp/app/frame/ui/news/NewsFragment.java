@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.squareup.picasso.Picasso;
 import com.szp.app.frame.R;
 import com.szp.app.frame.activity.BaseFragment;
@@ -30,6 +31,7 @@ import com.wyh.slideAdapter.HeaderBind;
 import com.wyh.slideAdapter.ItemBind;
 import com.wyh.slideAdapter.ItemView;
 import com.wyh.slideAdapter.SlideAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -43,127 +45,139 @@ import java.util.TimerTask;
 
 public class NewsFragment extends BaseFragment implements INewsContract.IView {
 
-  private INewsContract.IPresenter mPresenter;
+	private INewsContract.IPresenter mPresenter;
 
-  private View mView;
+	private View mView;
 
-  private RecyclerView mRecyclerView;
+	private RecyclerView mRecyclerView;
 
-  private Timer timer = new Timer();
-  private ViewPager viewPager;
-  private final int DELAY = 3000;
-  private final int PERIOD = 3000;
-  //计算当前页面的索引
-  private int count = 0;
-  //是否暂停定时器
-  private boolean isPause = false;
-  private final int CYCLE = 0;
-  private Handler mHandler = new Handler(){
-    @Override public void handleMessage(Message msg) {
-      if(CYCLE == msg.what){
-        viewPager.setCurrentItem(count++);
-      }
-    }
-  };
+	private Timer timer = new Timer();
+	private ViewPager viewPager;
+	private final int DELAY = 3000;
+	private final int PERIOD = 3000;
+	//计算当前页面的索引
+	private int count = 0;
+	//是否暂停定时器
+	private boolean isPause = false;
+	private final int CYCLE = 0;
+	private Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (CYCLE == msg.what) {
+				viewPager.setCurrentItem(count++);
+			}
+		}
+	};
 
-  @Nullable @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
-    mView = LayoutInflater.from(mActivity).inflate(R.layout.news_fragment_layout, null);
-    return mView;
-  }
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+							 @Nullable Bundle savedInstanceState) {
+		mView = LayoutInflater.from(mActivity).inflate(R.layout.news_fragment_layout, null);
+		return mView;
+	}
 
-  @Override public void onResume() {
-    super.onResume();
-    isPause = false;
-    if (mPresenter != null) {
-      mPresenter.start();
-    }
-  }
+	@Override
+	public void onResume() {
+		super.onResume();
+		isPause = false;
+		if (mPresenter != null) {
+			mPresenter.start();
+		}
+	}
 
-  @Override public void initView() {
-    timer.schedule(new TimerTask() {
-      @Override public void run() {
-        if(isPause){
-          return;
-        }
-        if(count == mPresenter.getDataSize() - 1){
-          count = 0;
-        }
-        Message message = new Message();
-        message.what = CYCLE;
-        mHandler.sendMessage(message);
-      }
-    },DELAY,PERIOD);
-    mRecyclerView = (RecyclerView) mView.findViewById(R.id.recyclerView);
-    mRecyclerView.setLayoutManager(
-        new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-    SlideAdapter.load(mPresenter.getData())
-        .item(R.layout.news_recycle_item_layout, 0, 0,
-            R.layout.newsfragment_item_right_slider_layout, 0.35f)
-        .header(R.layout.news_fragment_header_layout, 0.35f)
-        .padding(10)
-        .bind(itemBind)
-        .bind(new HeaderBind() {
-          @Override public void onBind(ItemView itemView, int i) {
-            //header布局显示
-            viewPager = itemView.getView(R.id.item_header_viewPager);
-            viewPager.setAdapter(new NewsHeaderAdapter(mPresenter.getImageViews()));
+	@Override
+	public void initView() {
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				if (isPause) {
+					return;
+				}
+				if (count == mPresenter.getDataSize() - 1) {
+					count = 0;
+				}
+				Message message = new Message();
+				message.what = CYCLE;
+				mHandler.sendMessage(message);
+			}
+		}, DELAY, PERIOD);
+		mRecyclerView = (RecyclerView) mView.findViewById(R.id.recyclerView);
+		mRecyclerView.setLayoutManager(
+				new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+		SlideAdapter.load(getListData())
+				.item(R.layout.news_recycle_item_layout, 0, 0,
+						R.layout.newsfragment_item_right_slider_layout, 0.35f)
+				.header(R.layout.news_fragment_header_layout, 0.35f)
+				.padding(10)
+				.bind(itemBind)
+				.bind(new HeaderBind() {
+					@Override
+					public void onBind(ItemView itemView, int i) {
+						//header布局显示
+						viewPager = itemView.getView(R.id.item_header_viewPager);
+						viewPager.setAdapter(new NewsHeaderAdapter(mPresenter.getImageViews()));
 
-          }
-        })
-        .footer(R.layout.news_bottom_layout, 0.2f)
-        .listen(new BottomListener() {
-          @Override public void onBottom(final ItemView footer, final SlideAdapter slideAdapter) {
-            if (footer == null) {
-              return;
-            }
-            footer.setText(R.id.tv_bottom, "正在加载...");
-            ImageView imageView = footer.getView(R.id.img_bottom);
-            Animation animation = AnimationUtils.loadAnimation(mActivity, R.anim.refresh_anim);
-            imageView.startAnimation(animation);
-            new Thread(new Runnable() {
-              @Override public void run() {
-                try {
-                  Thread.sleep(1000);
-                } catch (Exception ex) {
-                  ex.getMessage();
-                }
-                mActivity.runOnUiThread(new Runnable() {
-                  @Override public void run() {
-                    List data2 = getListData();
-                    slideAdapter.loadMore(data2);
-                    footer.setText(R.id.tv_bottom, "加载完成");
-                  }
-                });
-              }
-            }).start();
-          }
-        })
-        .into(mRecyclerView);
-  }
+					}
+				})
+				.footer(R.layout.news_bottom_layout, 0.2f)
+				.listen(new BottomListener() {
+					@Override
+					public void onBottom(final ItemView footer, final SlideAdapter slideAdapter) {
+						if (footer == null) {
+							return;
+						}
+						footer.setText(R.id.tv_bottom, "正在加载...");
+						ImageView imageView = footer.getView(R.id.img_bottom);
+						Animation animation = AnimationUtils.loadAnimation(mActivity, R.anim.refresh_anim);
+						imageView.startAnimation(animation);
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								try {
+									Thread.sleep(1000);
+								} catch (Exception ex) {
+									ex.getMessage();
+								}
+								mActivity.runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										List data2 = getListData();
+										slideAdapter.loadMore(data2);
+										footer.setText(R.id.tv_bottom, "加载完成");
+									}
+								});
+							}
+						}).start();
+					}
+				})
+				.into(mRecyclerView);
+	}
 
-  private ItemBind itemBind = new ItemBind<NewsData>() {
-    @Override public void onBind(ItemView itemView, final NewsData data, int position) {
-      itemView.setText(R.id.news_item_tv, data.getContent())
-          .setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-              //点击item
-              Intent intent = new Intent();
-              intent.putExtra(NewsItemActivity.URL, data.getUrl());
-              intent.putExtra(NewsItemActivity.CONTENT, data.getContent());
-              intent.setClass(mActivity, NewsItemActivity.class);
-              startActivity(intent);
-            }
-          })
-          .setOnClickListener(R.id.btn_item_delete, new View.OnClickListener() {
-            @Override public void onClick(View view) {
-              //点击textView
-              Toast.makeText(mActivity, "你特么给删了？", Toast.LENGTH_SHORT).show();
-            }
-          })
-          /*.setOnClickListener(R.id.news_item_tv, new View.OnClickListener() {
-            @Override
+	private ItemBind itemBind = new ItemBind<NewsData>() {
+		@Override
+		public void onBind(ItemView itemView, final NewsData data, int position) {
+			itemView.setText(R.id.news_item_tv, data.getContent())
+					.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View view) {
+							//点击item
+							Intent intent = new Intent();
+							intent.putExtra(NewsItemActivity.URL, data.getUrl());
+							intent.putExtra(NewsItemActivity.CONTENT, data.getContent());
+							intent.setClass(mActivity, NewsItemActivity.class);
+							startActivity(intent);
+						}
+					})
+					.setOnClickListener(R.id.btn_item_delete, new View.OnClickListener() {
+						@Override
+						public void onClick(View view) {
+							//点击textView
+							Toast.makeText(mActivity, "你特么给删了？", Toast.LENGTH_SHORT).show();
+						}
+					})
+		  /*.setOnClickListener(R.id.news_item_tv, new View.OnClickListener() {
+			@Override
 						public void onClick(View view) {
 							//点击textView
 							Toast.makeText(mActivity, "点击了文案", Toast.LENGTH_SHORT).show();
@@ -175,57 +189,31 @@ public class NewsFragment extends BaseFragment implements INewsContract.IView {
 							Toast.makeText(mActivity, "点击了图片", Toast.LENGTH_SHORT).show();
 						}
 					})*/;
-      //item布局显示
-      ImageView imageView = itemView.getView(R.id.news_item_img);
-      Picasso.with(mActivity).load(Uri.parse(data.getUrl())).fit().into(imageView);
-    }
-  };
+			//item布局显示
+			ImageView imageView = itemView.getView(R.id.news_item_img);
+			Picasso.with(mActivity).load(Uri.parse(data.getUrl())).fit().into(imageView);
+		}
+	};
 
-  @Override public void setPresenter(INewsContract.IPresenter presenter) {
-    this.mPresenter = presenter;
-  }
+	@Override
+	public void setPresenter(INewsContract.IPresenter presenter) {
+		this.mPresenter = presenter;
+	}
 
-  @Override public Activity getParentActivity() {
-    return mActivity;
-  }
+	@Override
+	public Activity getParentActivity() {
+		return mActivity;
+	}
 
-  private List<NewsData> getListData() {
-    List<NewsData> list = new ArrayList<>();
-    NewsData model1 = new NewsData();
-    model1.setUrl(
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507887527&di=6a320a3aa3784d44902780c1b90eaad2&imgtype=jpg&er=1&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D7dde8a793ea85edfee81f660213d6356%2F8cb1cb13495409231cbb80579858d109b2de49cd.jpg");
-    model1.setContent("习近平访问北京海淀区西二旗智学苑四号楼706室");
-    list.add(model1);
+	private List<NewsData> getListData() {
+		List<NewsData> list = new ArrayList<>();
+		list.addAll(mPresenter.getData());
+		return list;
+	}
 
-    NewsData model2 = new NewsData();
-    model2.setUrl(
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507399657473&di=e5b2ed635300e2a0d21fdfe7553120f9&imgtype=0&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fb999a9014c086e062d68efaf08087bf40bd1cb16.jpg");
-    model2.setContent("习近平访问北京海淀区西二旗智学苑四号楼705室");
-    list.add(model2);
-
-    NewsData model3 = new NewsData();
-    model3.setUrl(
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507399657472&di=601d1d09e88f1d24ccbdf1def07e8973&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fd788d43f8794a4c231fca94504f41bd5ac6e3984.jpg");
-    model3.setContent("习近平访问北京海淀区西二旗智学苑四号楼704室");
-    list.add(model3);
-
-    NewsData model4 = new NewsData();
-    model4.setUrl(
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507399657405&di=15cdf4ca220c6b7212541255a76c45f4&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F1f178a82b9014a909461e9baa1773912b31bee5e.jpg");
-    model4.setContent("习近平访问北京海淀区西二旗智学苑四号楼703室");
-    list.add(model4);
-
-    NewsData model5 = new NewsData();
-    model5.setUrl(
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507399657404&di=aa19eb928571370ebc181c17250b7c67&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F1f178a82b9014a90e7eb9d17ac773912b21bee47.jpg");
-    model5.setContent("习近平访问北京海淀区西二旗智学苑四号楼702室");
-    list.add(model5);
-
-    return list;
-  }
-
-  @Override public void onPause() {
-    super.onPause();
-    isPause = true;
-  }
+	@Override
+	public void onPause() {
+		super.onPause();
+		isPause = true;
+	}
 }
