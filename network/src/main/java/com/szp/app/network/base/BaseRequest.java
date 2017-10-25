@@ -8,8 +8,11 @@ import java.io.Serializable;
  * Desc :
  */
 
-public class BaseRequest implements Serializable{
+public abstract class BaseRequest implements Serializable{
 
-
+  /**
+   * 进行加密操作，由子类实现
+   */
+  abstract public void encrypData();
 
 }

@@ -37,7 +37,8 @@ publish {
   userOrg = 'xiaosungege'
   groupId = 'com.szp.app.network'
   artifactId = 'netframe'
-  version = '1.1.0'
+  version = '1.0.2'
   description = 'this is my appfram'
   website = "https://github.com/sunzeping001"
 }
+

@@ -26,7 +26,4 @@ public abstract class RetrofitNetClient implements INetClient {
         .addConverterFactory(GsonConverterFactory.create())
         .build();
   }
-
-
-
 }

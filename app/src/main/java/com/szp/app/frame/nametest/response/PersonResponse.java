@@ -1,30 +1,49 @@
 package com.szp.app.frame.nametest.response;
 
 import com.szp.app.network.base.BaseResponse;
-import java.io.Serializable;
 
 /**
  * Created by sunzeping on 2017/9/21.
- * Function:
+ * Function: 人类
  * Desc:
  */
 public class PersonResponse extends BaseResponse {
-  private String name;
-  private String url;
 
-  public String getName() {
-    return name;
+  private String code;
+
+  private String errorMsg;
+
+  private Persion persion;
+
+  public String getCode() {
+    return code;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setCode(String code) {
+    this.code = code;
   }
 
-  public String getUrl() {
-    return url;
+  public String getErrorMsg() {
+    return errorMsg;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setErrorMsg(String errorMsg) {
+    this.errorMsg = errorMsg;
+  }
+
+  public Persion getPersion() {
+    return persion;
+  }
+
+  public void setPersion(Persion persion) {
+    this.persion = persion;
+  }
+
+  @Override public String toString() {
+    return "PersonResponse{" +
+        "persion=" + persion +
+        ", errorMsg='" + errorMsg + '\'' +
+        ", code='" + code + '\'' +
+        '}';
   }
 }

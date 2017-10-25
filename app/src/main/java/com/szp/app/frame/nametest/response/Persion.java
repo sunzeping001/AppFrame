@@ -1,13 +1,14 @@
-package com.szp.app.frame.nametest.entity;
+package com.szp.app.frame.nametest.response;
 
-import com.szp.app.network.base.BaseRequest;
+import java.io.Serializable;
 
 /**
- * Created by sunzeping on 2017/9/21.
+ * Created by sunzeping on 2017/10/23.
  * Function:
  * Desc:
  */
-public class PersonRequest extends BaseRequest {
+public class Persion implements Serializable {
+
   private String name;
   private String url;
 
@@ -27,7 +28,10 @@ public class PersonRequest extends BaseRequest {
     this.url = url;
   }
 
-  @Override public void encrypData() {
-
+  @Override public String toString() {
+    return "Persion{" +
+        "name='" + name + '\'' +
+        ", url='" + url + '\'' +
+        '}';
   }
 }

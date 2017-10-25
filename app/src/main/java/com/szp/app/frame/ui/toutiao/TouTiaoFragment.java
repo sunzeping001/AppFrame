@@ -154,18 +154,8 @@ public class TouTiaoFragment extends BaseFragment implements ITouTiaoPresenterCo
 	 * 设置关注页面
 	 */
 	private void setGuanzhuFragment(){
-		GuanzhuListModel guanzhuListModel = new GuanzhuListModel();
-		List<GuanzhuModel> list = new ArrayList<>();
 		GuanzhuFragment guanzhuFragment = new GuanzhuFragment();
-		for (int i = 0; i < 7; i++) {
-			GuanzhuModel guanzhuModel = new GuanzhuModel();
-			guanzhuModel.setTitle("小孙哥哥荣获感动中国第201" + i + "最感动人物");
-			guanzhuModel.setContent("央视新闻网提供");
-			guanzhuModel.setUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508688610664&di=568a6b056c53abe916aa66238e6fcdab&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Dc803822dc295d143ce7bec601b99e877%2Fac4bd11373f08202d00bff1141fbfbedab641b06.jpg");
-			list.add(guanzhuModel);
-		}
-		guanzhuListModel.setGuanzhuModelList(list);
-		new GuanzhuPresenterImpl(guanzhuFragment,guanzhuListModel);
+		new GuanzhuPresenterImpl(guanzhuFragment,mPresenter.getGuanhuData());
 		fragmentList.add(guanzhuFragment);
 		titles.add("关注");
 	}
@@ -174,18 +164,8 @@ public class TouTiaoFragment extends BaseFragment implements ITouTiaoPresenterCo
 	 * 设置热点页面
 	 */
 	private void setHotFragment(){
-		GuanzhuListModel guanzhuListModel = new GuanzhuListModel();
-		List<GuanzhuModel> list = new ArrayList<>();
 		GuanzhuFragment guanzhuFragment = new GuanzhuFragment();
-		for (int i = 0; i < 7; i++) {
-			GuanzhuModel guanzhuModel = new GuanzhuModel();
-			guanzhuModel.setTitle("小孙哥哥荣获感动中国第201" + i + "最感动人物");
-			guanzhuModel.setContent("央视新闻网提供");
-			guanzhuModel.setUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508688610664&di=568a6b056c53abe916aa66238e6fcdab&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Dc803822dc295d143ce7bec601b99e877%2Fac4bd11373f08202d00bff1141fbfbedab641b06.jpg");
-			list.add(guanzhuModel);
-		}
-		guanzhuListModel.setGuanzhuModelList(list);
-		new GuanzhuPresenterImpl(guanzhuFragment,guanzhuListModel);
+		new GuanzhuPresenterImpl(guanzhuFragment,mPresenter.getGuanhuData());
 		fragmentList.add(guanzhuFragment);
 		titles.add("热点");
 	}

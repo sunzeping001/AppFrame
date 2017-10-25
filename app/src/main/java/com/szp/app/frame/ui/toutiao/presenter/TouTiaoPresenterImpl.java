@@ -2,6 +2,7 @@ package com.szp.app.frame.ui.toutiao.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.szp.app.frame.ui.guanzhu.model.GuanzhuListModel;
 import com.szp.app.frame.ui.toutiao.model.TouTiaoModel;
 
 /**
@@ -26,5 +27,9 @@ public class TouTiaoPresenterImpl implements ITouTiaoPresenterContract.IPresente
 	public void start() {
 		mView.initData();
 		mView.initView();
+	}
+
+	@Override public GuanzhuListModel getGuanhuData() {
+		return mModel.getGuanzhuModelList();
 	}
 }

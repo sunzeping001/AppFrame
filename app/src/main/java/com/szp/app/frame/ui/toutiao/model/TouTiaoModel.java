@@ -1,5 +1,6 @@
 package com.szp.app.frame.ui.toutiao.model;
 
+import com.szp.app.frame.ui.guanzhu.model.GuanzhuListModel;
 import java.io.Serializable;
 
 /**
@@ -9,4 +10,15 @@ import java.io.Serializable;
  */
 
 public class TouTiaoModel implements Serializable {
+  //关注数据
+  private GuanzhuListModel guanzhuModelList;
+  //热点
+
+  public GuanzhuListModel getGuanzhuModelList() {
+    return guanzhuModelList;
+  }
+
+  public void setGuanzhuModelList(GuanzhuListModel guanzhuModelList) {
+    this.guanzhuModelList = guanzhuModelList;
+  }
 }

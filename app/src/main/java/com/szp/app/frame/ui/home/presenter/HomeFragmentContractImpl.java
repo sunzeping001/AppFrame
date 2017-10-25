@@ -42,10 +42,10 @@ public class HomeFragmentContractImpl implements IHomeContract.IPresenter {
 	 */
 	private void initData() {
 		imageViewList = new ArrayList<>();
-		if (homeFragmentModel.getListUrl() != null && homeFragmentModel.getListUrl().size() > 0) {
-			for (int i = 0; i < homeFragmentModel.getListUrl().size(); i++) {
+		if (homeFragmentModel.getNewsDataList() != null && homeFragmentModel.getNewsDataList().size() > 0) {
+			for (int i = 0; i < homeFragmentModel.getNewsDataList().size(); i++) {
 				ImageView imageView = new ImageView(mView.getParentActivity());
-				Picasso.with(mView.getParentActivity()).load(Uri.parse(homeFragmentModel.getListUrl().get(i))).fit().into(imageView);
+				Picasso.with(mView.getParentActivity()).load(Uri.parse(homeFragmentModel.getNewsDataList().get(i).getUrl())).fit().into(imageView);
 				imageViewList.add(imageView);
 			}
 		}

@@ -1,5 +1,6 @@
 package com.szp.app.frame.ui.home.model;
 
+import com.szp.app.frame.ui.news.model.NewsData;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,13 +12,13 @@ import java.util.List;
 
 public class HomeFragmentModel implements Serializable {
 
-	private List<String> listUrl;
+	private List<NewsData> newsDataList;
 
-	public List<String> getListUrl() {
-		return listUrl;
+	public List<NewsData> getNewsDataList() {
+		return newsDataList;
 	}
 
-	public void setListUrl(List<String> listUrl) {
-		this.listUrl = listUrl;
+	public void setNewsDataList(List<NewsData> newsDataList) {
+		this.newsDataList = newsDataList;
 	}
 }

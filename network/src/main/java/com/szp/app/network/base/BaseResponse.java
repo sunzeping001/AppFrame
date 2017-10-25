@@ -8,5 +8,7 @@ import java.io.Serializable;
  * Desc :
  */
 
-public class BaseResponse implements Serializable{
+public abstract class BaseResponse implements Serializable{
+
+
 }

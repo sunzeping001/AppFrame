@@ -1,47 +1,79 @@
 package com.szp.app.frame.net;
 
-import com.szp.app.frame.nametest.entity.PersonRequest;
-import com.szp.app.frame.nametest.response.PersonResponse;
-import com.szp.app.network.base.BaseRequest;
-import com.szp.app.network.client.RetrofitNetClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import android.util.Log;
+import com.szp.app.frame.GloableVeriable;
+import com.szp.app.frame.ui.home.entity.HomeRequest;
+import com.szp.app.frame.ui.login.entity.LoginRequest;
+import com.szp.app.frame.ui.login.entity.LoginResponse;
+import com.szp.app.frame.ui.news.model.NewsData;
+import com.szp.app.frame.ui.toutiao.entity.ToutiaoRequest;
+import com.szp.app.frame.ui.toutiao.entity.ToutiaoResponse;
+import com.szp.app.frame.ui.toutiao.model.TouTiaoModel;
+import com.szp.app.network.client.INetClient;
+import com.szp.app.network.interf.IResultCallback;
+import java.util.List;
 
 /**
  * Created by sunzeping on 2017/9/20.
- * Function:
+ * Function: 代理请求
  * Desc:
  */
-public class NetClient extends RetrofitNetClient {
+public class NetClient implements INetClient {
+
+  private RetrofitClient retrofitClient;
+
+  private MockClient mockClient;
+
+  private String url;
 
   public NetClient(String url) {
-    super(url);
+    this.url = url;
+    retrofitClient = new RetrofitClient(url);
+    mockClient = new MockClient();
   }
 
   /**
-   * 异步请求
+   * 获取头条结果
+   * @param request
+   * @param resultCallback
    */
-  public void asynPersonQuery(PersonRequest request, Callback outCall) {
-    CommonInterface.Server server = mRetrofit.create(CommonInterface.Server.class);
-    Call<PersonResponse> call = server.request(request);
-    call.enqueue(outCall);
-  }
+  public void asynToutiaoQuery(final ToutiaoRequest request, final IResultCallback resultCallback) {
+    if (GloableVeriable.MOCK) {
+      mockClient.asynQuery(request, resultCallback);
+    } else {
+      retrofitClient.asynToutiaoQuery(request, new IResultCallback<TouTiaoModel>() {
+        @Override public void onSuccess(TouTiaoModel response) {
+          Log.e("szp", response.toString());
+          resultCallback.onSuccess(response);
+        }
 
-  /**
-   * 同步请求
-   */
-  public PersonResponse synPersonQuery(PersonRequest request) {
-    PersonResponse response = null;
-    CommonInterface.Server personServer = mRetrofit.create(CommonInterface.Server.class);
-    Call<PersonResponse> call = personServer.request(request);
-    try {
-      Response rp = call.execute();
-      response = (PersonResponse) rp.body();
-    } catch (Exception e) {
-      e.printStackTrace();
+        @Override public void onFail(String errorCode, String errorMsg) {
+          Log.e("szp", "errorCode = " + errorCode + "errorMsg = " + errorMsg);
+          resultCallback.onFail(errorCode,errorMsg);
+        }
+      });
     }
-    return response;
+  }
+
+  /**
+   * 登录
+   * @param request
+   * @param resultCallback
+   */
+  public void asynLoginQuery(final LoginRequest request, final IResultCallback resultCallback) {
+    if (GloableVeriable.MOCK) {
+      mockClient.asynQuery(request, resultCallback);
+    } else {
+      retrofitClient.asynLoginQuery(request, new IResultCallback<LoginResponse>() {
+        @Override public void onSuccess(LoginResponse response) {
+          Log.e("szp", response.isLogin() + "");
+        }
+
+        @Override public void onFail(String errorCode, String errorMsg) {
+          Log.e("szp", "errorCode = " + errorCode + "errorMsg = " + errorMsg);
+        }
+      });
+    }
   }
 
 }
