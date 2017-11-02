@@ -17,6 +17,10 @@ allprojects {
 //      url 'https://dl.bintray.com/xiaosungege/maven'
 //    }
     maven { url 'https://jitpack.io' }
+    maven {
+      // All of React Native (JS, Android binaries) is installed from npm
+      url "$projectDir/../node_modules/react-native/android"
+    }
   }
   tasks.withType(Javadoc) {
     options{

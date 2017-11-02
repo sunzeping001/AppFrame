@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "com.szp.app.frame"
         minSdkVersion 19
-        targetSdkVersion 22
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -31,5 +31,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.yhaolpz:SlideAdapter:1.0.0'
     compile 'com.android.support:recyclerview-v7:24.4.0'
+    compile "com.facebook.react:react-native:+"
 //    compile project(':network')
 }
